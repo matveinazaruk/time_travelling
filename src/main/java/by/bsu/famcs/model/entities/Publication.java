@@ -19,7 +19,8 @@ public class Publication {
     private String author;
     private ArrayList<Event> events = new ArrayList<Event>();
 
-    private static DateTimeFormatter dtf = DateTimeFormat.forPattern("dd-mm-yyyy hh:mm");
+    private static DateTimeFormatter publicationDtf = DateTimeFormat.forPattern("DD.MM.yyyy HH:mm");
+    private static DateTimeFormatter eventDtf = DateTimeFormat.forPattern("DD.MM.yyyy");
 
     private boolean fromFuture = false;
 
@@ -84,6 +85,7 @@ public class Publication {
     public void analyze() {
         List<Event> fixedEvents = EventsReader.getInstance().getEvents();
         events.addAll(fixedEvents.stream().filter(event -> content.toLowerCase().contains(event.getName().toLowerCase())).collect(Collectors.toList()));
+        detect();
     }
 
     public boolean containsEvent(String eventName) {
@@ -95,10 +97,10 @@ public class Publication {
     }
 
     public void detect() {
-        DateTime publicationDate = dtf.parseDateTime(date);
+        DateTime publicationDate = publicationDtf.parseDateTime(date);
         DateTime eventDate;
         for (Event event : events) {
-            eventDate = dtf.parseDateTime(event.getDate());
+            eventDate = eventDtf.parseDateTime(event.getDate());
             if (publicationDate.isBefore(eventDate)) {
                 fromFuture = true;
                 return;
