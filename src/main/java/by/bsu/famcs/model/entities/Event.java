@@ -1,4 +1,4 @@
-package by.bsu.famcs.model;
+package by.bsu.famcs.model.entities;
 
 import org.joda.time.DateTime;
 

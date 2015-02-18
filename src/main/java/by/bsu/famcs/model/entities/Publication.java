@@ -1,4 +1,4 @@
-package by.bsu.famcs.model;
+package by.bsu.famcs.model.entities;
 
 import org.joda.time.DateTime;
 
@@ -9,14 +9,18 @@ public class Publication {
     private String title;
     private String content;
     private DateTime publicationDate;
+    private String author;
+
+    private boolean fromFuture = false;
 
     public Publication() {
     }
 
-    public Publication(String title, String content, DateTime publicationDate) {
+    public Publication(String title, String content, DateTime publicationDate, String author) {
         this.title = title;
         this.content = content;
         this.publicationDate = publicationDate;
+        this.author = author;
     }
 
     public String getTitle() {
@@ -41,5 +45,21 @@ public class Publication {
 
     public void setPublicationDate(DateTime publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public boolean isFromFuture() {
+        return fromFuture;
+    }
+
+    public void setFromFuture(boolean fromFuture) {
+        this.fromFuture = fromFuture;
     }
 }
