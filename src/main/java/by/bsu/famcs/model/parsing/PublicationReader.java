@@ -6,6 +6,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PublicationReader {
     private static PublicationReader reader = new PublicationReader();
@@ -58,12 +59,7 @@ public class PublicationReader {
     }
 
     public List<Publication> getPublicationsByEvent(String eventName) {
-        ArrayList<Publication> resultPublications = new ArrayList<>();
-        for (Publication pub : PublicationAnalyzer.getInstance().getAnalyzedPublications()) {
-            if (pub.containsEvent(eventName))
-                resultPublications.add(pub);
-        }
-        return resultPublications;
+        return PublicationAnalyzer.getInstance().getAnalyzedPublications().stream().filter(pub -> pub.containsEvent(eventName)).collect(Collectors.toList());
     }
 
     public Publication getPublicationByTitle(String title) {

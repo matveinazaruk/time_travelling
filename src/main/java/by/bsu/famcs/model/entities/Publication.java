@@ -1,6 +1,10 @@
 package by.bsu.famcs.model.entities;
 
 import by.bsu.famcs.model.parsing.EventsReader;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +18,8 @@ public class Publication {
     private String date;
     private String author;
     private ArrayList<Event> events = new ArrayList<Event>();
+
+    private static DateTimeFormatter dtf = DateTimeFormat.forPattern("dd-mm-yyyy hh:mm");
 
     private boolean fromFuture = false;
 
@@ -86,5 +92,17 @@ public class Publication {
                 return true;
         }
         return false;
+    }
+
+    public void detect() {
+        DateTime publicationDate = dtf.parseDateTime(date);
+        DateTime eventDate;
+        for (Event event : events) {
+            eventDate = dtf.parseDateTime(event.getDate());
+            if (publicationDate.isBefore(eventDate)) {
+                fromFuture = true;
+                return;
+            }
+        }
     }
 }
