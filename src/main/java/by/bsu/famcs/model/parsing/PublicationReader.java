@@ -10,6 +10,10 @@ import java.util.List;
 public class PublicationReader {
     private static PublicationReader reader = new PublicationReader();
 
+
+    private ArrayList<Publication> publications = new ArrayList<>();
+    private boolean readed = false;
+
     private PublicationReader() {}
 
     public static PublicationReader getInstance() {
@@ -18,17 +22,20 @@ public class PublicationReader {
 
     // Тут томасу надо считать из файла и вернуть ваньке публикации
     public List<Publication> getPublications(String articlesFolderName) throws IOException {
-        File f = new File(articlesFolderName);
-        String[] names = f.list(); //получает список имен файлов в папке
+        if (!readed) {
+            File f = new File(articlesFolderName);
+            String[] names = f.list(); //получает список имен файлов в папке
 
-        ArrayList<Publication> pubs = new ArrayList<>();
 
 
-        for (String name : names) {
-            pubs.add(parsePublication(articlesFolderName + "/" + name));
+            for (String name : names) {
+                publications.add(parsePublication(articlesFolderName + "/" + name));
+            }
+            readed = true;
         }
-        return pubs;
+        return publications;
     }
+
 
     private Publication parsePublication(String fileName) throws IOException {
         String content = readPublication(fileName);
@@ -48,6 +55,23 @@ public class PublicationReader {
             e.printStackTrace();
         }
 
+        return null;
+    }
+
+    public List<Publication> getPublicationsByEvent(String eventName) {
+        ArrayList<Publication> resultPublications = new ArrayList<>();
+        for (Publication pub : publications) {
+            if (pub.containsEvent(eventName))
+                resultPublications.add(pub);
+        }
+        return resultPublications;
+    }
+
+    public Publication getPublicationByTitle(String title) {
+        for (Publication p : publications) {
+            if (p.getTitle().equalsIgnoreCase(title))
+                return p;
+        }
         return null;
     }
 

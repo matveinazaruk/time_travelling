@@ -1,10 +1,8 @@
 package by.bsu.famcs.model.entities;
 
 import by.bsu.famcs.model.parsing.EventsReader;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -80,5 +78,13 @@ public class Publication {
     public void analyze() {
         List<Event> fixedEvents = EventsReader.getInstance().getEvents();
         events.addAll(fixedEvents.stream().filter(event -> content.toLowerCase().contains(event.getName().toLowerCase())).collect(Collectors.toList()));
+    }
+
+    public boolean containsEvent(String eventName) {
+        for (Event event : events) {
+            if (event.getName().equalsIgnoreCase(eventName))
+                return true;
+        }
+        return false;
     }
 }
