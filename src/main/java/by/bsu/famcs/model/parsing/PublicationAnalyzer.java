@@ -26,7 +26,7 @@ public class PublicationAnalyzer {
     // и если она из будущего ставит  fromFuture = true;
     // и возвращает проанализированные
     public List<Publication> getAnalyzedPublications() {
-        List<Publication> publications = reader.getPublications();
+        //List<Publication> publications = reader.getPublications();
         //что то с ними делаешь
         return null;
     }
