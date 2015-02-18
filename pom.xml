@@ -12,6 +12,14 @@
     </properties>
 
     <dependencies>
+
+        <!-- Jackson -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+
         <!--joda time -->
         <dependency>
             <groupId>joda-time</groupId>
