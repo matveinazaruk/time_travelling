@@ -5,6 +5,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,8 +26,12 @@ public class EventsReader {
     }
 
     public List<Event> getEvents() {
-        Path path = Paths.get("src", EVENTS_FILENAME);
+        URL location = EventsReader.class.getProtectionDomain().getCodeSource().getLocation();
+
+        final String dir = System.getProperty("user.dir");
+        Path path = Paths.get("resources", EVENTS_FILENAME);
         try {
+            path.toAbsolutePath().toString();
             List<String> lines = Files.readAllLines(path);
             StringBuilder resultJson = new StringBuilder("");
             lines.forEach(resultJson::append);
@@ -42,5 +47,9 @@ public class EventsReader {
         List<Event> events = mapper.readValue(json,
                 mapper.getTypeFactory().constructCollectionType(List.class, Event.class));
         return events;
+    }
+
+    public static void main(String[] args) {
+        EventsReader.getInstance().getEvents().forEach(e -> System.out.println(e.getName()));
     }
 }
