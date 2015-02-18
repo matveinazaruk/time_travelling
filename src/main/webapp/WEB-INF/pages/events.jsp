@@ -32,11 +32,13 @@
     <a href="#" class="nav-menu-button">Menu</a>
 
     <div class="nav-inner">
-
       <div class="pure-menu pure-menu-open">
         <ul>
+          <a href="events">
+            <h3 style="color: #1b98f8">Events</h3>
+          </a>
           <c:forEach items="${events}" var="event">
-            <li><a href="/publications?event=${event.name}">${event.name}</a></li>
+            <li><a href="/publications?event=${event.name}">${event.name} <br> ${event.date}</a></li>
           </c:forEach>
         </ul>
       </div>

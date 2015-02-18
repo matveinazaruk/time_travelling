@@ -36,8 +36,17 @@
 
       <div class="pure-menu pure-menu-open">
         <ul>
+          <a href="events">
+            <h3 style="color: #1b98f8">Events</h3>
+          </a>
           <c:forEach items="${events}" var="event">
-            <li><a href="/publications?event=${event.name}">${event.name}</a></li>
+            <c:if test="${event.name == eventName}">
+              <li style="background-color: #373C5A"><a href="/publications?event=${event.name}">${event.name} <br> ${event.date}</a></li>
+            </c:if>
+            <c:if test="${event.name != eventName}">
+              <li><a href="/publications?event=${event.name}">${event.name} <br> ${event.date}</a></li>
+            </c:if>
+
           </c:forEach>
         </ul>
       </div>
@@ -46,16 +55,33 @@
 
   <div id="list" class="pure-u-1">
     <c:forEach items="${publications}" var="pub">
-      <div class="email-item pure-g"  onclick="location.href='/publication?event=${eventName}&title=${pub.title}';" style="cursor:pointer;">
+      <c:if test="${pub.fromFuture}">
+        <div class="email-item pure-g"
+             style="border-left: 6px solid #ff6666; cursor:pointer;"
+             onclick="location.href='/publication?event=${eventName}&title=${pub.title}';">
 
-        <div class="pure-u-3-4">
-          <h5 class="email-name">${pub.author}</h5>
-          <h4 class="email-subject">${pub.title}</h4>
-          <p class="email-desc">
-              ${pub.date}
-          </p>
+          <div class="pure-u-3-4">
+            <h5 class="email-name">${pub.author}</h5>
+            <h4 class="email-subject">${pub.title}</h4>
+            <p class="email-desc">
+                ${pub.date}
+            </p>
+          </div>
         </div>
-      </div>
+      </c:if>
+
+      <c:if test="${!pub.fromFuture}">
+        <div class="email-item pure-g"  onclick="location.href='/publication?event=${eventName}&title=${pub.title}';" style="cursor:pointer;">
+
+          <div class="pure-u-3-4">
+            <h5 class="email-name">${pub.author}</h5>
+            <h4 class="email-subject">${pub.title}</h4>
+            <p class="email-desc">
+                ${pub.date}
+            </p>
+          </div>
+        </div>
+      </c:if>
     </c:forEach>
   </div>
 
