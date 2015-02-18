@@ -11,6 +11,9 @@ import java.nio.file.*;
 import java.io.InputStreamReader;
 import java.util.List;
 
+/**
+ * Created by matvei on 18.02.15.
+ */
 public class PublicationReader {
     private static PublicationReader reader = new PublicationReader();
 
