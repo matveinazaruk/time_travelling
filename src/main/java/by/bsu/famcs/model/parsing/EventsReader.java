@@ -40,6 +40,7 @@ public class EventsReader {
                 StringBuilder resultJson = new StringBuilder("");
                 lines.forEach(resultJson::append);
                 events = parseEventsJson(resultJson.toString());
+                readed = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
