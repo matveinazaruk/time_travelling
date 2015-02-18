@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by matvei on 18.02.15.
- */
 public class PublicationAnalyzer {
 
     private static PublicationAnalyzer analyzer = new PublicationAnalyzer();
