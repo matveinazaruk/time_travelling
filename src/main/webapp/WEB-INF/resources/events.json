@@ -1,16 +1,16 @@
 [
-    {
-      "name" : "union",
-      "date" : "12.12.2012"
-    },
+  {
+    "name" : "union",
+    "date" : "12.12.2012"
+  },
 
-    {
-      "name" : "Communist",
-      "date" : "11.11.2011"
-    },
+  {
+    "name" : "asia",
+    "date" : "11.11.2015"
+  },
 
-    {
-      "name" : "Event 3",
-      "date" : "10.10.2010"
-    }
-  ]
+  {
+    "name" : "event",
+    "date" : "10.10.2010"
+  }
+]
