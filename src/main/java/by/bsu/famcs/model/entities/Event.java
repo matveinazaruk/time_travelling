@@ -7,12 +7,12 @@ import org.joda.time.DateTime;
  */
 public class Event {
     private String name;
-    private DateTime date;
+    private String date;
 
     public Event() {
     }
 
-    public Event(String name, DateTime date) {
+    public Event(String name, String date) {
         this.name = name;
         this.date = date;
     }
@@ -25,11 +25,11 @@ public class Event {
         this.name = name;
     }
 
-    public DateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

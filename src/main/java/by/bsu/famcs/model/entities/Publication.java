@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Publication {
     private String title;
     private String content;
-    private DateTime publicationDate;
+    private String publicationDate;
     private String author;
     private ArrayList<Event> events = new ArrayList<Event>();
 
@@ -19,7 +19,7 @@ public class Publication {
     public Publication() {
     }
 
-    public Publication(String title, String content, DateTime publicationDate, String author) {
+    public Publication(String title, String content, String publicationDate, String author) {
         this.title = title;
         this.content = content;
         this.publicationDate = publicationDate;
@@ -42,11 +42,11 @@ public class Publication {
         this.content = content;
     }
 
-    public DateTime getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(DateTime publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
