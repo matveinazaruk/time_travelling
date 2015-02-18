@@ -2,6 +2,8 @@ package by.bsu.famcs.model.entities;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+
 /**
  * Created by matvei on 18.02.15.
  */
@@ -10,6 +12,7 @@ public class Publication {
     private String content;
     private DateTime publicationDate;
     private String author;
+    private ArrayList<Event> events = new ArrayList<Event>();
 
     private boolean fromFuture = false;
 
@@ -61,5 +64,13 @@ public class Publication {
 
     public void setFromFuture(boolean fromFuture) {
         this.fromFuture = fromFuture;
+    }
+
+    public ArrayList<Event> getEvents() {
+        return events;
+    }
+
+    public boolean addEvent(Event event) {
+        return events.add(event);
     }
 }
