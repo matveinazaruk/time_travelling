@@ -1,8 +1,10 @@
 package by.bsu.famcs.model.parsing;
 
+import by.bsu.famcs.help.LocationHolder;
 import by.bsu.famcs.model.entities.Publication;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +15,8 @@ public class PublicationAnalyzer {
     private static PublicationAnalyzer analyzer = new PublicationAnalyzer();
 
     private PublicationReader reader;
+    private List<Publication> analyzedPublications = new ArrayList<>();
+    private boolean analyzed = false;
 
     private PublicationAnalyzer() {
         reader = PublicationReader.getInstance();
@@ -22,21 +26,18 @@ public class PublicationAnalyzer {
         return analyzer;
     }
 
-
-    // А тут ванька анализирует статьи
-    // и если она из будущего ставит  fromFuture = true;
-    // и возвращает проанализированные
     public List<Publication> getAnalyzedPublications() {
-        List<Publication> publications = null;
 
-        try {
-            publications = reader.getPublications("src/articles");
-            publications.forEach(Publication::analyze);
-            return publications;
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!analyzed) {
+            try {
+                String location = LocationHolder.getResourcesLocation();
+                analyzedPublications = reader.getPublications(location + "/articles");
+                analyzedPublications.forEach(Publication::analyze);
+                analyzed = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        return null;
+        return analyzedPublications;
     }
 }
