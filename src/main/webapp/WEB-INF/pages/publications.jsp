@@ -32,17 +32,29 @@
 
       <div class="pure-menu pure-menu-open">
         <ul>
-          <li><a href="#">Event 1</a></li>
-          <li><a href="#">Event 2</a></li>
-          <li><a href="#">Event 3</a></li>
-          <li><a href="#">Event 4</a></li>
+          <c:forEach items="${events}" var="event">
+            <li><a href="/publications?event=${event.name}">${event.name}</a></li>
+          </c:forEach>
         </ul>
       </div>
     </div>
   </div>
 
   <div id="list" class="pure-u-1">
-    <div class="email-item email-item-selected pure-g">
+    <c:forEach items="${publications}" var="pub">
+      <div class="email-item email-item-selected pure-g"  onclick="location.href='/publication?title=${pub.title}';" style="cursor:pointer;">
+
+        <div class="pure-u-3-4">
+          <h5 class="email-name">${pub.author}</h5>
+          <h4 class="email-subject">${pub.title}</h4>
+          <p class="email-desc">
+            Hey, I just wanted to check in with you from Toronto. I got here earlier today.
+          </p>
+        </div>
+      </div>
+    </c:forEach>
+
+    <div class="email-item email-item-selected pure-g"  onclick="location.href='';" style="cursor:pointer;">
 
       <div class="pure-u-3-4">
         <h5 class="email-name">Tilo Mitra</h5>

@@ -33,29 +33,32 @@
 
       <div class="pure-menu pure-menu-open">
         <ul>
-          <li><a href="#">Event 1</a></li>
-          <li><a href="#">Event 2</a></li>
-          <li><a href="#">Event 3</a></li>
-          <li><a href="#">Event 4</a></li>
+          <c:forEach items="${events}" var="event">
+            <li><a href="/publications?event=${event.name}">${event.name}</a></li>
+          </c:forEach>
         </ul>
       </div>
     </div>
   </div>
 
   <div id="list" class="pure-u-1">
-    <div class="email-item email-item-selected pure-g">
-      <div class="pure-u">
-        <img class="email-avatar" alt="Tilo Mitra&#x27;s avatar" height="64" width="64" src="img/common/tilo-avatar.png">
-      </div>
 
-      <div class="pure-u-3-4">
-        <h5 class="email-name">Tilo Mitra</h5>
-        <h4 class="email-subject">Hello from Toronto</h4>
-        <p class="email-desc">
-          Hey, I just wanted to check in with you from Toronto. I got here earlier today.
-        </p>
+    <a href="/events">
+
+      <div class="email-item email-item-selected pure-g">
+        <div class="pure-u">
+          <img class="email-avatar" alt="Tilo Mitra&#x27;s avatar" height="64" width="64" src="img/common/tilo-avatar.png">
+        </div>
+
+        <div class="pure-u-3-4">
+          <h5 class="email-name">Tilo Mitra</h5>
+          <h4 class="email-subject">Hello from Toronto</h4>
+          <p class="email-desc">
+            Hey, I just wanted to check in with you from Toronto. I got here earlier today.
+          </p>
+        </div>
       </div>
-    </div>
+    </a>
 
     <div class="email-item email-item-unread pure-g">
       <div class="pure-u">

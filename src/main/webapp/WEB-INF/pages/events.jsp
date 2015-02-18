@@ -36,7 +36,6 @@
       <div class="pure-menu pure-menu-open">
         <ul>
           <c:forEach items="${events}" var="event">
-
             <li><a href="/publications?event=${event.name}">${event.name}</a></li>
           </c:forEach>
         </ul>
