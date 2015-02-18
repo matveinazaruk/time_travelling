@@ -1,18 +1,12 @@
 package by.bsu.famcs.model.parsing;
 
 import by.bsu.famcs.model.entities.Publication;
-
-import javax.naming.spi.DirectoryManager;
+import org.codehaus.jackson.map.ObjectMapper;
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by matvei on 18.02.15.
- */
 public class PublicationReader {
     private static PublicationReader reader = new PublicationReader();
 
@@ -23,23 +17,23 @@ public class PublicationReader {
     }
 
     // Тут томасу надо считать из файла и вернуть ваньке публикации
-    public List<Publication> getPublications(String articlesFolderName) {
+    public List<Publication> getPublications(String articlesFolderName) throws IOException {
         File f = new File(articlesFolderName);
         String[] names = f.list(); //получает список имен файлов в папке
 
         ArrayList<Publication> pubs = new ArrayList<>();
 
+
         for (String name : names) {
-            System.out.println(name);
-            parsePublication(articlesFolderName + "/" + name);
+            pubs.add(parsePublication(articlesFolderName + "/" + name));
         }
         return pubs;
     }
 
-    private Publication parsePublication(String fileName) {
+    private Publication parsePublication(String fileName) throws IOException {
         String content = readPublication(fileName);
-        System.out.println(content);
-        return null;
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(content, Publication.class);
     }
 
     public String readPublication(String fileName) {
@@ -57,9 +51,9 @@ public class PublicationReader {
         return null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
        PublicationReader reader = PublicationReader.getInstance();
-       reader.getPublications("src/articles");
+       reader.getPublications("src/articles").forEach(p -> System.out.println(p.getTitle()));
     }
 }

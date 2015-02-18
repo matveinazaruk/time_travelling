@@ -1,8 +1,11 @@
 package by.bsu.famcs.model.entities;
 
-import org.joda.time.DateTime;
+import by.bsu.famcs.model.parsing.EventsReader;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Created by matvei on 18.02.15.
@@ -10,7 +13,7 @@ import java.util.ArrayList;
 public class Publication {
     private String title;
     private String content;
-    private String publicationDate;
+    private String date;
     private String author;
     private ArrayList<Event> events = new ArrayList<Event>();
 
@@ -22,7 +25,7 @@ public class Publication {
     public Publication(String title, String content, String publicationDate, String author) {
         this.title = title;
         this.content = content;
-        this.publicationDate = publicationDate;
+        this.date = publicationDate;
         this.author = author;
     }
 
@@ -42,12 +45,12 @@ public class Publication {
         this.content = content;
     }
 
-    public String getPublicationDate() {
-        return publicationDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setPublicationDate(String publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getAuthor() {
@@ -72,5 +75,10 @@ public class Publication {
 
     public boolean addEvent(Event event) {
         return events.add(event);
+    }
+
+    public void analyze() {
+        List<Event> fixedEvents = EventsReader.getInstance().getEvents();
+        events.addAll(fixedEvents.stream().filter(event -> content.toLowerCase().contains(event.getName().toLowerCase())).collect(Collectors.toList()));
     }
 }
