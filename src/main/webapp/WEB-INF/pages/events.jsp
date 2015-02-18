@@ -1,4 +1,7 @@
 <!doctype html>
+<%@ taglib prefix="c"
+           uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -32,15 +35,15 @@
 
       <div class="pure-menu pure-menu-open">
         <ul>
-          <li><a href="#">Event 1</a></li>
-          <li><a href="#">Event 2</a></li>
-          <li><a href="#">Event 3</a></li>
-          <li><a href="#">Event 4</a></li>
+          <c:forEach items="${events}" var="event">
+
+            <li><a href="/publications?event=${event.name}">${event.name}</a></li>
+          </c:forEach>
         </ul>
       </div>
     </div>
   </div>
-  
+
 </div>
 
 <script src="http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"></script>
