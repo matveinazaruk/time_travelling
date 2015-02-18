@@ -1,5 +1,6 @@
 package by.bsu.famcs.model.parsing;
 
+import by.bsu.famcs.help.LocationHolder;
 import by.bsu.famcs.model.entities.Event;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -26,10 +27,8 @@ public class EventsReader {
     }
 
     public List<Event> getEvents() {
-        URL location = EventsReader.class.getProtectionDomain().getCodeSource().getLocation();
-
-        final String dir = System.getProperty("user.dir");
-        Path path = Paths.get("resources", EVENTS_FILENAME);
+        String location = LocationHolder.getResourcesLocation();
+        Path path = Paths.get(location, EVENTS_FILENAME);
         try {
             path.toAbsolutePath().toString();
             List<String> lines = Files.readAllLines(path);
