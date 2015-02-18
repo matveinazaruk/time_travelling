@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by matvei on 18.02.15.
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PublicationsController {
 
     @RequestMapping(value = "/publications", method = RequestMethod.GET)
-    public String getEventPublications(ModelMap model) {
+    public String getEventPublications(ModelMap model, @RequestParam("event") String eventName) {
         model.addAttribute("message", "Hello world!");
         return "publications";
     }

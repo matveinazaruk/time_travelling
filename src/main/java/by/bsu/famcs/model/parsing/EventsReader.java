@@ -10,6 +10,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,9 @@ public class EventsReader {
     public static final String EVENTS_FILENAME = "events.json";
     private static EventsReader reader = new EventsReader();
 
+    private List<Event> events = new ArrayList<>();
+    private boolean readed = false;
+
     private EventsReader() {}
 
     public static EventsReader getInstance() {
@@ -27,18 +31,20 @@ public class EventsReader {
     }
 
     public List<Event> getEvents() {
-        String location = LocationHolder.getResourcesLocation();
-        Path path = Paths.get(location, EVENTS_FILENAME);
-        try {
-            path.toAbsolutePath().toString();
-            List<String> lines = Files.readAllLines(path);
-            StringBuilder resultJson = new StringBuilder("");
-            lines.forEach(resultJson::append);
-            return parseEventsJson(resultJson.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!readed) {
+            String location = LocationHolder.getResourcesLocation();
+            Path path = Paths.get(location, EVENTS_FILENAME);
+            try {
+                path.toAbsolutePath().toString();
+                List<String> lines = Files.readAllLines(path);
+                StringBuilder resultJson = new StringBuilder("");
+                lines.forEach(resultJson::append);
+                events = parseEventsJson(resultJson.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        return events;
     }
 
     private List<Event> parseEventsJson(String json) throws IOException {
