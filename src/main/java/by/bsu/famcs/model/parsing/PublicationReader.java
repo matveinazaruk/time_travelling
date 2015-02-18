@@ -26,8 +26,6 @@ public class PublicationReader {
             File f = new File(articlesFolderName);
             String[] names = f.list(); //получает список имен файлов в папке
 
-
-
             for (String name : names) {
                 publications.add(parsePublication(articlesFolderName + "/" + name));
             }
