@@ -1,6 +1,7 @@
 package by.bsu.famcs.controllers;
 
 import by.bsu.famcs.model.parsing.EventsReader;
+import by.bsu.famcs.model.parsing.PublicationReader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ public class PublicationsController {
     @RequestMapping(value = "/publications", method = RequestMethod.GET)
     public String getEventPublications(ModelMap model, @RequestParam("event") String eventName) {
         model.addAttribute("events", EventsReader.getInstance().getEvents());
+        model.addAttribute("publications", PublicationReader.getInstance().getPublicationsByEvent(eventName));
         return "publications";
     }
 

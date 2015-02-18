@@ -1,4 +1,8 @@
 <!doctype html>
+
+<%@ taglib prefix="c"
+           uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -48,7 +52,7 @@
           <h5 class="email-name">${pub.author}</h5>
           <h4 class="email-subject">${pub.title}</h4>
           <p class="email-desc">
-            Hey, I just wanted to check in with you from Toronto. I got here earlier today.
+            lslaslall
           </p>
         </div>
       </div>
