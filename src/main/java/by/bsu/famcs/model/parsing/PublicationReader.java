@@ -1,20 +1,18 @@
 package by.bsu.famcs.model.parsing;
 
 import by.bsu.famcs.model.entities.Publication;
-
-import javax.naming.spi.DirectoryManager;
+import org.codehaus.jackson.map.ObjectMapper;
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by matvei on 18.02.15.
- */
 public class PublicationReader {
     private static PublicationReader reader = new PublicationReader();
+
+
+    private ArrayList<Publication> publications = new ArrayList<>();
+    private boolean readed = false;
 
     private PublicationReader() {}
 
@@ -23,23 +21,26 @@ public class PublicationReader {
     }
 
     // Тут томасу надо считать из файла и вернуть ваньке публикации
-    public List<Publication> getPublications(String articlesFolderName) {
-        File f = new File(articlesFolderName);
-        String[] names = f.list(); //получает список имен файлов в папке
+    public List<Publication> getPublications(String articlesFolderName) throws IOException {
+        if (!readed) {
+            File f = new File(articlesFolderName);
+            String[] names = f.list(); //получает список имен файлов в папке
 
-        ArrayList<Publication> pubs = new ArrayList<>();
 
-        for (String name : names) {
-            System.out.println(name);
-            parsePublication(articlesFolderName + "/" + name);
+
+            for (String name : names) {
+                publications.add(parsePublication(articlesFolderName + "/" + name));
+            }
+            readed = true;
         }
-        return pubs;
+        return publications;
     }
 
-    private Publication parsePublication(String fileName) {
+
+    private Publication parsePublication(String fileName) throws IOException {
         String content = readPublication(fileName);
-        System.out.println(content);
-        return null;
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(content, Publication.class);
     }
 
     public String readPublication(String fileName) {
@@ -57,9 +58,26 @@ public class PublicationReader {
         return null;
     }
 
-    public static void main(String[] args) {
+    public List<Publication> getPublicationsByEvent(String eventName) {
+        ArrayList<Publication> resultPublications = new ArrayList<>();
+        for (Publication pub : publications) {
+            if (pub.containsEvent(eventName))
+                resultPublications.add(pub);
+        }
+        return resultPublications;
+    }
+
+    public Publication getPublicationByTitle(String title) {
+        for (Publication p : publications) {
+            if (p.getTitle().equalsIgnoreCase(title))
+                return p;
+        }
+        return null;
+    }
+
+    public static void main(String[] args) throws IOException {
 
        PublicationReader reader = PublicationReader.getInstance();
-       reader.getPublications("src/articles");
+       reader.getPublications("src/articles").forEach(p -> System.out.println(p.getTitle()));
     }
 }

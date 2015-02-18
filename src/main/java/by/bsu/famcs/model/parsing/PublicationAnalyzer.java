@@ -2,6 +2,7 @@ package by.bsu.famcs.model.parsing;
 
 import by.bsu.famcs.model.entities.Publication;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,8 +27,16 @@ public class PublicationAnalyzer {
     // и если она из будущего ставит  fromFuture = true;
     // и возвращает проанализированные
     public List<Publication> getAnalyzedPublications() {
-        //List<Publication> publications = reader.getPublications();
-        //что то с ними делаешь
+        List<Publication> publications = null;
+
+        try {
+            publications = reader.getPublications("src/articles");
+            publications.forEach(Publication::analyze);
+            return publications;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 }
