@@ -20,7 +20,6 @@ public class PublicationReader {
         return reader;
     }
 
-    // Тут томасу надо считать из файла и вернуть ваньке публикации
     public List<Publication> getPublications(String articlesFolderName) throws IOException {
         if (!readed) {
             File f = new File(articlesFolderName);
@@ -60,7 +59,7 @@ public class PublicationReader {
 
     public List<Publication> getPublicationsByEvent(String eventName) {
         ArrayList<Publication> resultPublications = new ArrayList<>();
-        for (Publication pub : publications) {
+        for (Publication pub : PublicationAnalyzer.getInstance().getAnalyzedPublications()) {
             if (pub.containsEvent(eventName))
                 resultPublications.add(pub);
         }
