@@ -1,4 +1,4 @@
-package com.springapp.mvc;
+package by.bsu.famcs.controllers;
 
 import org.junit.Before;
 import org.junit.Test;
