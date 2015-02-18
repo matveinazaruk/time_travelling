@@ -17,13 +17,19 @@ public class PublicationsController {
     @RequestMapping(value = "/publications", method = RequestMethod.GET)
     public String getEventPublications(ModelMap model, @RequestParam("event") String eventName) {
         model.addAttribute("events", EventsReader.getInstance().getEvents());
+        model.addAttribute("eventName", eventName);
         model.addAttribute("publications", PublicationReader.getInstance().getPublicationsByEvent(eventName));
         return "publications";
     }
 
     @RequestMapping(value = "/publication", method = RequestMethod.GET)
-    public String getFullPublication(ModelMap model) {
-        model.addAttribute("message", "Hello world!");
+    public String getFullPublication(ModelMap model,
+                                     @RequestParam("event") String eventName,
+                                     @RequestParam("title") String title) {
+        model.addAttribute("events", EventsReader.getInstance().getEvents());
+        model.addAttribute("publications", PublicationReader.getInstance().getPublicationsByEvent(eventName));
+        model.addAttribute("eventName", eventName);
+        model.addAttribute("publication", PublicationReader.getInstance().getPublicationByTitle(title));
         return "publication";
     }
 }
