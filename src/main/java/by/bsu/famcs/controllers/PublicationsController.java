@@ -29,6 +29,7 @@ public class PublicationsController {
         model.addAttribute("events", EventsReader.getInstance().getEvents());
         model.addAttribute("publications", PublicationReader.getInstance().getPublicationsByEvent(eventName));
         model.addAttribute("eventName", eventName);
+        model.addAttribute("pubTitle", title);
         model.addAttribute("publication", PublicationReader.getInstance().getPublicationByTitle(title));
         return "publication";
     }
